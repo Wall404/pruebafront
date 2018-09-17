@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="page-header">Agenda</h1>
+  <table class="table" id="agenda-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Descripcion</th>
+        <th>MateriaId</th>
+        <th>CreatedOn</th>
+        <th>CreatedBy</th>
+        <th>DeletetedOn</th>
+        <th>DeletedBy</th>
+        <th>Completed</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for x in agenda %}
+        <tr>
+          <td>{{ x.Id }}</td>
+          <td>{{ x.Descripcion }}</td>
+          <td>{{ x.MateriaId }}</td>
+          <td>{{ x.CreatedOn }}</td>
+          <td>{{ x.CreatedBy }}</td>
+          <td>{{ x.DeletedOn }}</td>
+          <td>{{ x.DeletedBy }}</td>
+          <td>{{ x.IsDeleted }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7" class="text-center bg-warning">Vacio</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
