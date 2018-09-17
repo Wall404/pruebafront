@@ -7,6 +7,8 @@ class Agenda(models.Model):
     Descripcion: models.CharField(max_length=200)
     MateriaId: models.IntegerField()
     CreatedOn: models.DateTimeField()
+    CreatedBy: models.CharField(max_length=200)
+    ChangeOn: models.DateTimeField()
     ChangedBy: models.CharField(max_length=200)
     DeletedOn: models.DateTimeField()
     DeletedBy: models.CharField(max_length=200)

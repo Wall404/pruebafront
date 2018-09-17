@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url, include
 
-from FrontTest import views
+from agenda import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', views.todo_list, name='todo_list'),
+    url('', views.home, name='home'),
+
+    path('', views.agenda_lista, name='agenda_lista'),
 ]
