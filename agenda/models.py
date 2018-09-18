@@ -6,13 +6,13 @@ class Agenda(models.Model):
     Id: models.IntegerField()
     Descripcion: models.CharField(max_length=200)
     MateriaId: models.IntegerField()
-    CreatedOn: models.DateTimeField()
+    CreatedOn: models.DateTimeField(auto_now_add=True)
     CreatedBy: models.CharField(max_length=200)
     ChangeOn: models.DateTimeField()
     ChangedBy: models.CharField(max_length=200)
     DeletedOn: models.DateTimeField()
     DeletedBy: models.CharField(max_length=200)
-    IsDeleted: bool
+    IsDeleted: models.BooleanField(default=False)
 
     # def __str__(self):
     #     return self.user_ID

@@ -2,30 +2,33 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from .models import Agenda
 
+import io
 import json
 import requests
 
-# Create your views here.
-# class TodoForm(ModelForm):
-#     model = Prueba
+class RESTResponse(io.IOBase):
+
+    def __init__(self, resp):
+        self.urllib3_response = resp
+        self.status = resp.status
+        self.reason = resp.reason
+        self.data = resp.data
 
 def home(request):
     return render(request, 'home.html')
 
 def agenda_lista(request, template_name='agenda_lista.html'):
-    response = requests.get("http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/Select")
+# https://github.com/swagger-api/swagger-codegen/blob/master/samples/client/petstore/python/petstore_api/rest.py
 
-    data = dict(response)
+    response = requests.get("http://spc-api.unpaz.edu.ar/swagger/ui/index#!/ContenidoMinimoService/ContenidoMinimoService_SelectAll")
 
-    y = response.json()
+    r = RESTRsponse(r)
+    # data = dict(response)
 
-    # context = {
-    #     'userId': y["userId"],
-    #     'id_todo': y["id"],
-    #     'title': y["title"],
-    #     'completed': y["completed"]
-    # }
+    # y = response.json()
 
-    data['list'] = render_to_string(template_name, request)    
+    # agenda = Agenda.objects.all()
 
-    return render(request, template_name, context=data)
+    # data['list'] = render_to_string(template_name, request)    
+
+    return render(request, template_name)

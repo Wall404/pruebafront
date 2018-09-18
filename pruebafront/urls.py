@@ -22,7 +22,7 @@ from agenda import views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    url('', views.home, name='home'),
+    # url('', views.home, name='home'),
 
-    path('', views.agenda_lista, name='agenda_lista'),
+    url('', views.agenda_lista, name='agenda_lista'),
 ]
