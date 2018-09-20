@@ -14,5 +14,19 @@ class Agenda(models.Model):
     DeletedBy: models.CharField(max_length=200)
     IsDeleted: models.BooleanField(default=False)
 
-    # def __str__(self):
-    #     return self.user_ID
+    # def __init__(self):
+    #     return self.agenda = [
+    #         'Id',
+    #         'Descripcion',
+    #         'MateriaId',
+    #         'CreatedOn',
+    #         'CreatedBy',
+    #         'ChangedOn',
+    #         'ChangedBy',
+    #         'DeletedOn',
+    #         'DeletedBy',
+    #         'IsDeleted'
+    #         ]
+
+    # def query(self):
+    #     url = 'http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/Select/'
