@@ -22,7 +22,9 @@ from agenda import views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    url('', views.home, name='home'),
+    path('', views.home, name='home'),
 
-    path('', views.agenda_lista, name='agenda_lista'),
+    path('agenda_lista/', views.agenda_lista, name='agenda_lista'),
+
+    path('agenda_lista/agregar/', views.agregar_item, name='agregar_item')
 ]

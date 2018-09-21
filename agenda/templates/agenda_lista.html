@@ -1,41 +1,45 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block javascript %}
+  <script src="{% static 'agenda/js/agenda.js' %}"></script>
+{% endblock %}
+
 {% block content %}
-  <h1 class="page-header">Agenda</h1>
-  <table class="table" id="agenda-table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Descripcion</th>
-        <th scope="col">MateriaId</th>
-        <th scope="col">CreatedOn</th>
-        <th scope="col">CreatedBy</th>
-        <th scope="col">ChangedOn</th>
-        <th scope="col">ChangedBy</th>
-        <th scope="col">DeletetedOn</th>
-        <th scope="col">DeletedBy</th>
-        <th scope="col">Completed</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for x in datos %}
-        <tr>
-          <td>{{ x.Id }}</td>
-          <td>{{ x.Descripcion }}</td>
-          <td>{{ x.MateriaId }}</td>
-          <td>{{ x.CreatedOn }}</td>
-          <td>{{ x.CreatedBy }}</td>
-          <td>{{ x.ChangedOn }}</td>
-          <td>{{ x.ChangedBy }}</td>
-          <td>{{ x.DeletedOn }}</td>
-          <td>{{ x.DeletedBy }}</td>
-          <td>{{ x.IsDeleted }}</td>
-        </tr>
-      {% empty %}
-        <tr>
-          <td colspan="10" class="text-center bg-warning">Vacio</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<h1 class="page-header">Agenda</h1>
+
+	<p>
+		<button type="button" class="btn btn-primary js-agregar-item">
+			<span class="glyphicon glyphicon-plus"><strong>+</strong></span>
+			Agregar item
+		</button>
+	</p>
+
+<table class="table" id="agenda-table">
+	<thead class="thead-dark">
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Descripcion</th>
+			<th scope="col">MateriaId</th>
+			<th scope="col">CreatedOn</th>
+			<th scope="col">CreatedBy</th>
+			<th scope="col">ChangedOn</th>
+			<th scope="col">ChangedBy</th>
+			<th scope="col">DeletetedOn</th>
+			<th scope="col">DeletedBy</th>
+			<th scope="col">Completed</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% include 'agenda_lista_parcial.html' %}
+	</tbody>
+</table>
+<div class="modal fade" id="modal-agenda">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		</div>
+	</div>
+</div>
+
 {% endblock %}

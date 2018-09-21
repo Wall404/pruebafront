@@ -1,0 +1,18 @@
+{% for x in datos %}
+<tr>
+    <td>{{ x.Id }}</td>
+    <td>{{ x.Descripcion }}</td>
+    <td>{{ x.MateriaId }}</td>
+    <td>{{ x.CreatedOn }}</td>
+    <td>{{ x.CreatedBy }}</td>
+    <td>{{ x.ChangedOn }}</td>
+    <td>{{ x.ChangedBy }}</td>
+    <td>{{ x.DeletedOn }}</td>
+    <td>{{ x.DeletedBy }}</td>
+    <td>{{ x.IsDeleted }}</td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="10" class="text-center bg-warning">Vacio</td>
+</tr>
+{% endfor %}
