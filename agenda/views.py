@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.http import JsonResponse
-from .models import Agenda
-from .forms import Agregar_item
+
+from .forms import AgregarForm
 
 import urllib3
 import json
@@ -21,27 +21,34 @@ def agenda_lista(request, template_name='agenda_lista.html'):
     # itera en el codigo html (agenda_lista.html)
     datos = json.loads(response.text)
 
-    return render(request, template_name, {'datos': datos })
+    return render(request, template_name, { 'datos': datos })
+
 
 def agregar_item(request):
     data = dict()
 
     if request.method == 'POST':
-        form = Agregar_item(request.POST)
+        form = AgregarForm(request.POST)
         if form.is_valid():
-            form.save()
+            url = 'http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/Add'
+            headers = { 'Content-Type' : 'application/json' }
             data['form_is_valid'] = True
-            agenda = Agenda.objects.all()
-            data['html_agenda_lista'] = render_to_string('agenda_lista_parcial',
-            { 'agenda': agenda })
+   
+            datos = json.dumps(form.data)
+
+            r = requests.post(url, datos, headers=headers)
+
+            data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html',
+                                                         {'datos': datos})
         else:
             data['form_is_valid'] = False
     else:
-        form = Agregar_item()
+        form = AgregarForm()
 
-    form = Agregar_item()
-    ctx = {'form':form}
-    data['html_form'] = render_to_string('agenda/includes/agregar_item_parcial.html',
+    # form = AgregarForm()
+    ctx = {'form': form}
+    data['html_form'] = render_to_string(
+        'agregar_item_parcial.html',
         ctx,
         request=request,
     )

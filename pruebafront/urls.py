@@ -26,5 +26,5 @@ urlpatterns = [
 
     path('agenda_lista/', views.agenda_lista, name='agenda_lista'),
 
-    path('agenda_lista/agregar/', views.agregar_item, name='agregar_item')
+    path('agenda_lista/agregar_item/', views.agregar_item, name='agregar_item')
 ]

@@ -3,18 +3,20 @@
 {% load static %}
 
 {% block javascript %}
-  <script src="{% static 'agenda/js/agenda.js' %}"></script>
+<script src="{% static 'agenda/js/agenda.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 <h1 class="page-header">Agenda</h1>
 
-	<p>
-		<button type="button" class="btn btn-primary js-agregar-item">
-			<span class="glyphicon glyphicon-plus"><strong>+</strong></span>
-			Agregar item
-		</button>
-	</p>
+<p>
+	<button type="button"
+	class="btn btn-info js-agregar-item"
+	data-url="{% url 'agregar_item' %}">
+		<!-- <span class="glyphicon glyphicon-plus"></span> -->
+		Agregar item
+	</button>
+</p>
 
 <table class="table" id="agenda-table">
 	<thead class="thead-dark">
@@ -35,6 +37,7 @@
 		{% include 'agenda_lista_parcial.html' %}
 	</tbody>
 </table>
+
 <div class="modal fade" id="modal-agenda">
 	<div class="modal-dialog">
 		<div class="modal-content">
