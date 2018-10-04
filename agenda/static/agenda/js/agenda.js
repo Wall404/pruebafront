@@ -35,7 +35,16 @@ $(function () {
 		return false;
 	};
 
+	// Agregar Item
 	$(".js-agregar-item").click(loadForm);
 	$("#modal-agenda").on("submit", ".js-agregar-item-form", saveForm);
+	
+	// Modificar item
+	$("#agenda-table").on("click", ".js-modificar-item", loadForm);
+	$("#modal-agenda").on("submit", ".js-modificar-item-form", saveForm);
+	
+	// Borrar item
+	$("#agenda-table").on("click", ".js-borrar-item", loadForm);
+	$("#modal-agenda").on("submit", ".js-borrar-item-form", saveForm);
 
 });

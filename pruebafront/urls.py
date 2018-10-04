@@ -26,5 +26,13 @@ urlpatterns = [
 
     path('agenda_lista/', views.agenda_lista, name='agenda_lista'),
 
-    path('agenda_lista/agregar_item/', views.agregar_item, name='agregar_item')
+    path('agenda_lista/agregar_item/', views.agregar_item, name='agregar_item'),
+
+    url(r'^agenda_lista/borrar_item/(?P<pk>\d+)/$', views.borrarItem, name='borrar_item'),
+
+    # path('agenda_lista/borrar_item/', views.borrarItem, name='borrar_item'),
+
+    url(r'^agenda_lista/modificar_item/(?P<pk>\d+)/$', views.modificarItem, name='modificar_item'),
+
+    # path('agenda_lista/modificar_item/', views.modificarItem, name='modificar_item'),
 ]

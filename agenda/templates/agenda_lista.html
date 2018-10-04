@@ -11,7 +11,7 @@
 
 <p>
 	<button type="button"
-	class="btn btn-info js-agregar-item"
+	class="btn btn-primary js-agregar-item"
 	data-url="{% url 'agregar_item' %}">
 		<!-- <span class="glyphicon glyphicon-plus"></span> -->
 		Agregar item
@@ -24,19 +24,27 @@
 			<th scope="col">#</th>
 			<th scope="col">Descripcion</th>
 			<th scope="col">MateriaId</th>
-			<th scope="col">CreatedOn</th>
+			<!-- <th scope="col">CreatedOn</th>
 			<th scope="col">CreatedBy</th>
 			<th scope="col">ChangedOn</th>
 			<th scope="col">ChangedBy</th>
 			<th scope="col">DeletetedOn</th>
 			<th scope="col">DeletedBy</th>
-			<th scope="col">Completed</th>
+			<th scope="col">Completed</th> -->
+			<th scope="col">Modificar</th>
+			<th scope="col">Eliminar</th>
 		</tr>
 	</thead>
 	<tbody>
 		{% include 'agenda_lista_parcial.html' %}
 	</tbody>
 </table>
+
+<p>
+	<button class="btn btn-danger js-borrar-todo">
+		Borrar Todo
+	</button>
+</p>
 
 <div class="modal fade" id="modal-agenda">
 	<div class="modal-dialog">

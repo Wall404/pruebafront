@@ -3,16 +3,29 @@
     <td>{{ x.Id }}</td>
     <td>{{ x.Descripcion }}</td>
     <td>{{ x.MateriaId }}</td>
-    <td>{{ x.CreatedOn }}</td>
+    <!-- <td>{{ x.CreatedOn }}</td>
     <td>{{ x.CreatedBy }}</td>
     <td>{{ x.ChangedOn }}</td>
     <td>{{ x.ChangedBy }}</td>
     <td>{{ x.DeletedOn }}</td>
     <td>{{ x.DeletedBy }}</td>
-    <td>{{ x.IsDeleted }}</td>
-</tr>
+    <td>{{ x.IsDeleted }}</td> -->
+    <td>
+        <button class="btn btn-secondary js-modificar-item"
+        data-url="{% url 'modificar_item' x.Id %}">
+        <span class="glyphicon glyphicon-pencil"></span>
+            Modificar
+        </button>
+    </td>
+    <td><button class="btn btn-warning js-borrar-item"
+        data-url="{% url 'borrar_item' x.Id as borrar %}">
+            <span class="glyphicon glyphicon-trash"></span>
+            Borrar
+        </button>
+    </td>
+    </tr>
 {% empty %}
 <tr>
-    <td colspan="10" class="text-center bg-warning">Vacio</td>
+    <td colspan="5" class="text-center bg-warning">Vacio</td>
 </tr>
 {% endfor %}

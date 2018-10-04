@@ -1,11 +1,9 @@
-{% load widget_tweaks %}
-
-<form method="post" action="{% url 'agregar_item' %}" class="js-agregar-item-form">
+<form method="post" action="{% url 'modificar_item' form.instance.pk %}" class="js-modificar-item-form">
 
     {% csrf_token %}
 
     <div class="modal-header">
-        <h4 class="modal-title">Agregar Nuevo Item</h4>
+        <h4 class="modal-title">Modificar Item</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -17,6 +15,6 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary">Agregar Item</button>
+        <button type="submit" class="btn btn-primary">Realizar Cambios</button>
     </div>
 </form>
