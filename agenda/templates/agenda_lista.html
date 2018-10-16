@@ -8,15 +8,24 @@
 
 {% block content %}
 <h1 class="page-header">Agenda</h1>
-
-<p>
-	<button type="button"
-	class="btn btn-primary js-agregar-item"
-	data-url="{% url 'agregar_item' %}">
-		<!-- <span class="glyphicon glyphicon-plus"></span> -->
-		Agregar item
-	</button>
-</p>
+<div>
+	<p>
+		<button type="button"
+		class="btn btn-primary js-agregar-item"
+		data-url="{% url 'agregar_item' %}">
+			<span class="glyphicon glyphicon-plus"></span>
+			Agregar item
+		</button>
+	</p>
+	<!-- <p>
+		<button type="button"
+		class="btn btn-primary js-buscar-item"
+		data-url="{% url 'buscar_item' %}">
+			<span class="glyphicon glyphicon-search"></span>
+			Buscar Item
+		</button>
+	</p> -->
+</div>
 
 <table class="table" id="agenda-table">
 	<thead class="thead-dark">
@@ -42,6 +51,7 @@
 
 <p>
 	<button class="btn btn-danger js-borrar-todo">
+		<span class="glyphicon glyphicon-remove-circle"></span>
 		Borrar Todo
 	</button>
 </p>

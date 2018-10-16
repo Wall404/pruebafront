@@ -1,12 +1,12 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.template.loader import render_to_string
+import json
+
+import requests
 from django.http import JsonResponse
+from django.shortcuts import render
+from django.template.loader import render_to_string
 
 from .models import Agenda
-from .forms import AgregarForm
-
-import json
-import requests
+from .forms import *
 
 
 def home(request):
@@ -15,18 +15,15 @@ def home(request):
 
 def agenda_lista(request, template_name='agenda_lista.html'):
 
-    response = requests.get("http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/Select")
-
-    # se toma lo recibido en la respuesta (response)
-    # y se convierte en objeto de python
     # el nombre de la variable (datos) tiene que ser el mismo que se
     # itera en el codigo html (agenda_lista_parcial.html)
-    datos = json.loads(response.text)
+    
+    datos = getAll()
 
     return render(request, template_name, {'datos': datos})
 
 
-def agregar_item(request):
+def agregarItem(request):
     data = dict()
 
     if request.method == 'POST':
@@ -40,94 +37,116 @@ def agregar_item(request):
                 headers={'Content-Type': 'application/json'}
             )
 
-            datos = json.loads(requests.get(
-                "http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/Select").text)
+            datos = getAll()
 
-            data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html',
-                                                        {'datos': datos})
+            data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html', {'datos': datos})
         else:
             data['form_is_valid'] = False
     else:
         form = AgregarForm()
 
-    data['html_form'] = render_to_string(
-        'agregar_item_parcial.html',
-        {'form': form},
-        request=request,
-    )
+    data['html_form'] = render_to_string('agregar_item_parcial.html',{'form': form},request=request)
     return JsonResponse(data)
 
 
-def modificarItem(request, form, template_name):
+def Editar(request, pk):
     data = dict()
+    item = getObj(pk)
 
     if request.method == 'POST':
-        form = AgregarForm(request.POST)
+        form = modificarItem(request.POST)
         if form.is_valid():
             data['form_is_valid'] = True
+        
+            datos = {
+                'Id':pk, 
+                # 'MateriaId': getObj(pk)['MateriaId'],
+                'MateriaId': form.data['MateriaId'],
+                'Descripcion':form.data['Descripcion']
+                'CreatedBy': item.CreatedBy
+                }
+            print(datos)
 
-            request.post('http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/EditBy', 
-                        json.dumps(form.data), 
-                        headers={'Content-Type': 'application/json'})
+            requests.post('http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/EditBy', 
+                        # json.dumps(datos)
+                        json = datos, 
+                        # # data = {'Descripcion': form.data['Descripcion']},
+                        # headers={'Content-Type': 'application/json'}
+                        )
 
-            datos = json.loads(requests.get(
-                "http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/Select").text)
+            datos = getAll()
 
             data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html',
-                                                        {'datos': datos})
+                                                         {'datos': datos})
         else:
             data['form_is_valid'] = False
     else:
-        form = AgregarForm()
-
+        form = modificarItem()
+    form.Id = pk
+    print(form.Id)
+        
     data['html_form'] = render_to_string(
-        'modificar_item_parcial.html', 
-        {'form':form}, 
+        'modificar_item_parcial.html',
+        {'form': form},
         request=request)
 
     return JsonResponse(data)
 
-# def crearItem(request):
-#     if request.method == 'POST':
-#         form = AgregarForm(request.POST)
-#     else:
-#         form = AgregarForm()
-#     return modificarItem(request, form, 'agregar_item_parcial.html')
-
-# def actualizarItem(request, pk):
-#     item = get_object_or_404(Agenda, pk=pk)
-#     if request.method == 'POST':
-#         form = AgregarForm(request.POST, instance=item)
-#     else:
-#         form = AgregarForm()
-#     return modificarItem(request, form, 'modificar_item_parcial.html')
-
 
 def borrarItem(request, pk):
-    elemento = get_object_or_404(Agenda, pk = pk)
+    item = getObj(pk)
+    print(item)
     data = dict()
-    if(request.method == 'POST'):
-        elemento.delete()
+
+    if request.method == 'POST':
+        
         data['form_is_valid'] = True
         
-        elemento = request.POST.get(
-                                    'http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/DeleteBy',
-                                    json.dumps(pk),
-                                    headers={'Content-Type': 'null'}
-                                )
+        requests.post('http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/DeleteBy', params = {'Id':pk})
 
-        elemento = json.loads(requests.get(
-            "http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/Select").text)
-        data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html',
-                                                        {'elemento': elemento})
+        datos = getAll()
+
+        data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html', {'datos': datos})
     else:
-        # elemento = json.loads(requests.get(
-        #     "http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/Select").text)
-
-        # elemento = AgregarForm()
-        context = {'elemento': elemento}
+        context = {'item': item}
         data['html_form'] = render_to_string('borrar_parcial.html',
-                                            context,
-                                            request=request,
+                                             context,
+                                             request=request
                                             )
     return JsonResponse(data)
+
+def buscar(request):
+    data = dict()
+ 
+    if request.method == 'POST':
+        form = buscarItem(request.POST)
+        print(form)
+        if form.is_valid():
+            data['form_is_valid'] = True
+
+            requests.post(
+                'http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/SearchOne',
+                data=form.data,
+                headers={'Content-Type': 'application/json; charset=utf-8'}
+            )
+
+            datos = json.loads(requests.get("http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/SelectOne", params = form.data).text)
+
+            data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html',
+                                                         {'datos': datos})
+        else:
+            data['form_is_valid'] = False
+    else:
+        form = buscarItem()
+
+    data['html_form'] = render_to_string('buscar_item_parcial.html', {
+                                         'form': form}, request=request)
+    return JsonResponse(data)
+
+def getObj(pk):
+    dato = json.loads(requests.get("http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/SelectOne", params = {'Id':pk}).text)
+    return dato
+
+def getAll():
+    datos = json.loads(requests.get("http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/Select").text)
+    return datos

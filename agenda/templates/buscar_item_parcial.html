@@ -1,9 +1,11 @@
-<form method="post" action="{% url 'editar' pk=form.Id %}" class="js-boton-modificar">
+{% load widget_tweaks %}
+
+<form method="post" action="{% url 'buscar_item' %}" class="js-buscar-item-form">
 
     {% csrf_token %}
 
     <div class="modal-header">
-        <h4 class="modal-title">Modificar Item</h4>
+        <h4 class="modal-title">Buscar Item</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -15,6 +17,6 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary">Realizar Cambios</button>
+        <button type="submit" class="btn btn-primary">Buscar</button>
     </div>
 </form>
