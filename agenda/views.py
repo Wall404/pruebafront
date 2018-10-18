@@ -5,14 +5,16 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
 
+from django.contrib.auth.decorators import login_required
+
 from .models import Agenda
-from .forms import *
+from .forms import AgregarForm, modificarItem
 
 
 def home(request):
     return render(request, 'home.html')
 
-
+@login_required
 def agenda_lista(request, template_name='agenda_lista.html'):
 
     # el nombre de la variable (datos) tiene que ser el mismo que se
@@ -32,10 +34,7 @@ def agregarItem(request):
             data['form_is_valid'] = True
 
             requests.post(
-                'http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/Add',
-                json.dumps(form.data),
-                headers={'Content-Type': 'application/json'}
-            )
+                'http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/Add', json = form.data)
 
             datos = getAll()
 
@@ -60,19 +59,14 @@ def Editar(request, pk):
         
             datos = {
                 'Id':pk, 
-                # 'MateriaId': getObj(pk)['MateriaId'],
-                'MateriaId': form.data['MateriaId'],
-                'Descripcion':form.data['Descripcion']
-                'CreatedBy': item.CreatedBy
+                'MateriaId': item['MateriaId'],
+                # 'MateriaId': form.data['MateriaId'],
+                'Descripcion':form.data['Descripcion'],
+                'CreatedBy': item['CreatedBy']
                 }
             print(datos)
 
-            requests.post('http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/EditBy', 
-                        # json.dumps(datos)
-                        json = datos, 
-                        # # data = {'Descripcion': form.data['Descripcion']},
-                        # headers={'Content-Type': 'application/json'}
-                        )
+            requests.post('http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/EditBy', json = datos)
 
             datos = getAll()
 
@@ -120,20 +114,20 @@ def buscar(request):
  
     if request.method == 'POST':
         form = buscarItem(request.POST)
-        print(form)
+        print(form.data)
         if form.is_valid():
             data['form_is_valid'] = True
 
-            requests.post(
-                'http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/SearchOne',
-                data=form.data,
-                headers={'Content-Type': 'application/json; charset=utf-8'}
-            )
+            # requests.post(
+            #     'http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/SearchOne',
+            #     params = form.data['Id'],
+            #     headers={'Content-Type': 'application/json; charset=utf-8'}
+            # )
 
-            datos = json.loads(requests.get("http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/SelectOne", params = form.data).text)
+            item = getObj(form.data['Id'])
 
             data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html',
-                                                         {'datos': datos})
+                                                         {'item': item})
         else:
             data['form_is_valid'] = False
     else:

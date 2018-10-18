@@ -17,20 +17,28 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url, include
 
-from agenda import views
+from django.contrib.auth import views as auth_views
+
+from agenda import views as agenda_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', views.home, name='home'),
+    url('^', include('django.contrib.auth.urls')),
 
-    path('agenda_lista/', views.agenda_lista, name='agenda_lista'),
+    url(r'^login/$', auth_views.LoginView.as_view(redirect_authenticated_user=True, template_name='login.html'), name='login'),
 
-    path('agenda_lista/agregar_item/', views.agregarItem, name='agregar_item'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), {'next_page': '/'}, name='logout'),
 
-    url(r'^(?P<pk>\d+)/borrar/$', views.borrarItem, name='borrar_item'),
+    path('', agenda_views.home, name='home'),
 
-    url(r'^(?P<pk>\d+)/editar/$', views.Editar, name='editar'),
+    path('agenda_lista/', agenda_views.agenda_lista, name='agenda_lista'),
 
-    path('agenda_lista/buscar_item/', views.buscar, name='buscar_item'),
+    path('agenda_lista/agregar_item/', agenda_views.agregarItem, name='agregar_item'),
+
+    url(r'^(?P<pk>\d+)/borrar/$', agenda_views.borrarItem, name='borrar_item'),
+
+    url(r'^(?P<pk>\d+)/editar/$', agenda_views.Editar, name='editar'),
+
+    path('agenda_lista/buscar_item/', agenda_views.buscar, name='buscar_item'),
 ]
