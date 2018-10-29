@@ -22,7 +22,7 @@ from django.contrib.auth import views as auth_views
 from agenda import views as agenda_views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
 
     url('^', include('django.contrib.auth.urls')),
 

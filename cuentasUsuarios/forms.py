@@ -1,7 +1,7 @@
 from django import forms
-from userAccounts.models import Usuario
+from cuentasUsuarios.models import usuario
 
 class login(forms.ModelForm):
     class Meta:
-        model = Usuario
+        model = usuario
         fields = ()

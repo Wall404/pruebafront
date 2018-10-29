@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'tinymce',
 
     'agenda',
+
+    'cuentasUsuarios',
 ]
 
 MIDDLEWARE = [
@@ -95,7 +97,7 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pruebasgc',
+        'NAME': 'usuarioscm',
         'USER': 'wsantillan',
         'PASSWORD': 'admin1234',
         'HOST': 'localhost',
@@ -127,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ar'
 
 TIME_ZONE = 'UTC'
 
@@ -142,6 +144,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = 'cuentasUsuarios.user'
 
 LOGIN_REDIRECT_URL = 'home'
 

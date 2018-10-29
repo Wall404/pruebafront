@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a21403d1-c591-4198-b016-fb120706f8e3" name="campusvirtual desarollo" url="http://campusvirtualdesarrollo.unpaz.edu.ar">
+        <fileTransfer host="192.168.1.105" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
