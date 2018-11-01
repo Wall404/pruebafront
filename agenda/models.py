@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Agenda(models.Model):
-    Id: models.IntegerField(primary_key=True)
+    Id: models.IntegerField()
     Descripcion: models.CharField()
     MateriaId: models.IntegerField()
     CreatedOn: models.DateTimeField()

@@ -1,36 +1,35 @@
 from django.contrib import admin
-# from django.contrib.auth.admin import UserAdmin
-# from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Group
 
-# from cuentasUsuarios.models import Profile
+from .forms import CustomUserChangeForm, CustomUserCreationForm
+from .models import usuarioCustom
 
-# # Register your models here.
+class usuarioAdmin(UserAdmin):
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        (('Información Personal'), {'fields': ('first_name', 'last_name')}),
+        # (('Roles'), ('role'))
+        (('Permisos'), {'fields': ('is_admin', 'is_docente', 'is_dir_carrera',
+                                        'is_departamento', 'is_dir_prog_curricular',
+                                        'is_academica_admin', 'is_academica')}),
+                                    #    'groups', 'user_permissions')}),
+        # (('Important dates'), {'fields': ('last_login', 'date_joined')}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'password1', 'password2')}
+        ),
+    )
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = usuarioCustom
+    list_display = ['email', 'username', 'first_name', 'last_name']
+    list_select_related = True
+    list_display_links = ('username',) #link field
+    ordering = ('username', 'last_name')
+    search_fields = ('email', 'username')
 
-# class ProfileInline(admin.StackedInline):
-#     model = Profile
-#     can_delete = False
-#     verbose_name_plural = 'Profile'
-#     fk_name = 'user'
-
-# class CustomUserAdmin(UserAdmin):
-#     inlines = (ProfileInline, )
-#     list_display = (
-#         'username',
-#         'email',
-#         'first_name',
-#         'last_name',
-#         'get_role',
-#         )
-#     list_select_related = ('profile', )
-
-#     def get_role(self, instance):
-#         return instance.profile.role
-#     get_role.short_description = "Rol"
-
-#     def get_inline_instances(self, request, obj=None):
-#         if not obj:
-#             return list()
-#         return super(CustomUserAdmin, self).get_inline_instances(request, obj)
-
-# admin.site.unregister(User)
-# admin.site.register(User, CustomUserAdmin)
+admin.site.unregister(Group) #Remueve las directivas de grupo
+admin.site.register(usuarioCustom, usuarioAdmin) #registra el usuario personalizado

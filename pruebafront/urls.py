@@ -24,6 +24,10 @@ from agenda import views as agenda_views
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
 
+    # path('users/', include('pruebafront.urls')),
+
+    path('users/', include('django.contrib.auth.urls')),
+
     url('^', include('django.contrib.auth.urls')),
 
     url(r'^login/$', auth_views.LoginView.as_view(redirect_authenticated_user=True, template_name='login.html'), name='login'),

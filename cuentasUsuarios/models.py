@@ -5,60 +5,63 @@ from django.conf import settings
 # from django.db.models.signals import post_save
 # from django.dispatch import receiver
 
-class user(AbstractUser):
+class usuarioCustom(AbstractUser):
+    is_admin = models.BooleanField(default=False)
     is_docente = models.BooleanField(default=False)
-    is_director_carrera = models.BooleanField(default=False)
+    is_dir_carrera = models.BooleanField(default=False)
     is_departamento = models.BooleanField(default=False)
     is_dir_prog_curricular = models.BooleanField(default=False)
     is_academica_admin = models.BooleanField(default=False)
     is_academica = models.BooleanField(default=False)
-    is_admin = models.BooleanField(default=False)
 
-class userAdmin(models.Model):
-    usuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    nombre = models.CharField(max_length=255)
+    apellido = models.CharField(max_length=255)
+    createdOn = models.DateTimeField(auto_now_add=True)
 
-class userDocente(models.Model):
-    usuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
 
-class userDirectorCarrera(models.Model):
-    usuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    # DOCENTE = 1
+    # DIRECTOR_CARRERA = 2
+    # DEPARTAMENTO = 3
+    # DIR_PROG_CURRICULAR = 4
+    # ACADEMICA_ADMIN = 5
+    # ACADEMICA = 6
+    # ADMIN = 7
 
-class userDepartamento(models.Model):
-    usuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    # ROLE_CHOICES = (
+    #     (DOCENTE, 'Docente'),
+    #     (DIRECTOR_CARRERA, 'Director de Carrera'),
+    #     (DEPARTAMENTO, 'Departamento'),
+    #     (DIR_PROG_CURRICULAR, 'Direccion de Programas Curricular'),
+    #     (ACADEMICA_ADMIN, 'Academica Admin'),
+    #     (ACADEMICA, 'Academica'),
+    #     (ADMIN, 'Admin'),
+    # )
+    # role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES)
 
-class userDirProgCurricular(models.Model):
-    usuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+class usuarioAdmin(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    changedOn = models.DateTimeField(null=True)
 
-class userAcademicaAdmin(models.Model):
-    usuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
-
-class userAcademica(models.Model):
-    usuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+class usuarioDocente(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    changedOn = models.DateTimeField(null=True)
     
-
-# class Profile(models.Model):
-#     DOCENTE = 1
-#     DIRECTOR_CARRERA = 2
-#     DEPARTAMENTO = 3
-#     DIRECCION_PROGRAMAS_CURRICULAR = 4
-#     ACADEMICA_ADMIN = 5
-#     ACADEMICA = 6
-#     ADMIN = 7
-
-#     ROLE_CHOICES = (
-#         (DOCENTE, 'Docente'),
-#         (DIRECTOR_CARRERA, 'Director de Carrera'),
-#         (DEPARTAMENTO, 'Departamento'),
-#         (DIRECCION_PROGRAMAS_CURRICULAR, 'Direccion de Programas Curricular'),
-#         (ACADEMICA_ADMIN, 'Academica Admin'),
-#         (ACADEMICA, 'Academica'),
-#         (ADMIN, 'Admin'),
-#     )
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, null=True, blank=True)
-
-#     @receiver(post_save, sender=User)
-#     def create_or_update_user_profile(sender, instance, created, **kwargs):
-#         if created:
-#             Profile.objects.create(user=instance)
-#         instance.profile.save()
+class usuarioDirectorCarrera(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    changedOn = models.DateTimeField(null=True)
+    
+class usuarioDepartament(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    changedOn = models.DateTimeField(null=True)
+    
+class usuarioDirProgCurricular(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    changedOn = models.DateTimeField(null=True)
+    
+class usuarioAcademicaAdmin(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    changedOn = models.DateTimeField(null=True)
+    
+class usuarioAcademica(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    changedOn = models.DateTimeField(null=True)

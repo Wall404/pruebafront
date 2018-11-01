@@ -145,7 +145,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'cuentasUsuarios.user'
+AUTH_USER_MODEL = 'cuentasUsuarios.usuarioCustom'
 
 LOGIN_REDIRECT_URL = 'home'
 
