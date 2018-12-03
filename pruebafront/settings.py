@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+os.environ['DJANGO_SETTINGS_MODULE'] = 'pruebafront.settings'
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -45,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'smart_selects',
 
     'widget_tweaks',
 
@@ -102,6 +106,18 @@ DATABASES = {
         'PASSWORD': 'admin1234',
         'HOST': 'localhost',
         'PORT': '',
+    },
+
+    'guarani': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'guarani',
+        'OPTIONS': {
+            'options': '-c search_path=guarani.negocio'
+        },
+        'USER': 'wsantillan',
+        'PASSWORD': 'Walter2018',
+        'HOST': '192.168.1.145',
+        'PORT': '5432',
     }
 }
 
@@ -152,3 +168,7 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'
 
 LOGIN_URL = 'login'
+
+# JQUERY_URL = True
+
+USE_DJANGO_JQUERY = True

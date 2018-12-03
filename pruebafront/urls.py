@@ -24,7 +24,7 @@ from agenda import views as agenda_views
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
 
-    # path('users/', include('pruebafront.urls')),
+    url(r'^chaining/', include('smart_selects.urls')),
 
     path('users/', include('django.contrib.auth.urls')),
 

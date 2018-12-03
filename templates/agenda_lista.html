@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="page-header">Agenda</h1>
+<h1 class="page-header">Contenido Minimo</h1>
 <div>
 	<p>
 		<button type="button"
@@ -30,9 +30,15 @@
 <table class="table" id="agenda-table">
 	<thead class="thead-dark">
 		<tr>
+			{% comment %} <th scope="col">#</th>
+			<th scope="col">Descripcion</th> {% endcomment %}
+			
 			<th scope="col">#</th>
-			<th scope="col">Descripcion</th>
+			<th scope="col">Departamento</th>
+			<th scope="col">Carrera</th>
+			<th scope="col">Asignatura</th>			
 			<th scope="col">MateriaId</th>
+
 			<!-- <th scope="col">CreatedOn</th>
 			<th scope="col">CreatedBy</th>
 			<th scope="col">ChangedOn</th>
@@ -48,13 +54,6 @@
 		{% include 'agenda_lista_parcial.html' %}
 	</tbody>
 </table>
-
-<!-- <p>
-	<button class="btn btn-danger js-borrar-todo">
-		<span class="glyphicon glformyphicon-remove-circle"></span>
-		Borrar Todo
-	</button>
-</p> -->
 
 <div class="modal fade" id="modal-agenda" data-keyboard="false" data-backdrop="static">
 	<div class="modal-dialog">

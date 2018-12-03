@@ -1,5 +1,7 @@
 {% load widget_tweaks %}
 
+{{ form.media.js }}
+
 <form method="post" action="{% url 'agregar_item' %}" class="js-agregar-item-form">
 
     {% csrf_token %}

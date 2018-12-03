@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Django default" uuid="19e1fc77-ecef-443a-af91-38b916496fba">
+      <database-info product="PostgreSQL" version="9.6.3" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.2">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>wsantillan</user-name>
+      <introspection-schemas>usuarioscm:public</introspection-schemas>
+    </data-source>
+    <data-source name="Django guarani" uuid="ace1c0b4-4a1c-45de-8a84-834cca376ec8">
+      <database-info product="PostgreSQL" version="9.3.22" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.2">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>wsantillan</user-name>
+      <introspection-schemas>guarani:negocio</introspection-schemas>
+    </data-source>
+  </component>
+</project>

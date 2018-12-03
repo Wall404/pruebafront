@@ -1,9 +1,13 @@
 {% for x in datos %}
 <tr>
     <td>{{ x.Id }}</td>
-    <td>{{ x.Descripcion }}</td>
+    <td>{{ x.Departamento }}</td>
+    <td>{{ x.Carrera }}</td>
+    <td>{{ x.Materia }}</td>
     <td>{{ x.MateriaId }}</td>
-    <!-- <td>{{ x.CreatedOn }}</td>
+    <!--<td>{{ x.Descripcion }}</td>
+    <td>{{ x.MateriaId }}</td>
+    <td>{{ x.CreatedOn }}</td>
     <td>{{ x.CreatedBy }}</td>
     <td>{{ x.ChangedOn }}</td>
     <td>{{ x.ChangedBy }}</td>
@@ -11,13 +15,13 @@
     <td>{{ x.DeletedBy }}</td>
     <td>{{ x.IsDeleted }}</td> -->
     <td>
-        <button class="btn btn-secondary js-modificar-item" data-url="{% url 'editar' x.Id %}">
+        <button class="btn btn-secondary js-modificar-item" data-url="{% url 'editar' x.Id as pk %}">
             <span class="glyphicon glyphicon-pencil"></span>
             Modificar
         </button>
     </td>
     <td>
-        <button class="btn btn-warning js-borrar-item" data-url="{% url 'borrar_item' x.Id %}">
+        <button class="btn btn-warning js-borrar-item" data-url="{% url 'borrar_item' x.Id as pk %}">
             <span class="glyphicon glyphicon-trash"></span>
             Borrar
         </button>
