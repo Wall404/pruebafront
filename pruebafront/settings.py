@@ -163,12 +163,12 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'cuentasUsuarios.usuarioCustom'
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'agenda_lista'
 
 LOGOUT_REDIRECT_URL = 'login'
 
 LOGIN_URL = 'login'
 
-# JQUERY_URL = True
+JQUERY_URL = False
 
-USE_DJANGO_JQUERY = True
+# USE_DJANGO_JQUERY = True

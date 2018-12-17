@@ -1,0 +1,26 @@
+{% load widget_tweaks %}
+
+<form method="post" action="{% url 'ver_item' pk=item.Id %}" class="js-ver-item-form">
+
+    {% csrf_token %}
+
+    <div class="modal-header">
+        <h4 class="modal-title">Detalle {{ item.Id }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <label>Departamento: {{ dato.Departamento.nombre }}</label>
+        <label>Carrera: {{ dato.Carrera.nombre_propuesta }}</label>
+        <label>Asignatura: {{ dato.Materia.nombre }}</label><br>
+        <label>Descripci&oacuten: </label>
+        <p>{{ item.Descripcion }} </p>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        {% comment %} <button type="submit" class="btn btn-primary">Buscar</button> {% endcomment %}
+    </div>
+</form>

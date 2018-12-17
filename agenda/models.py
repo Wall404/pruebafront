@@ -48,3 +48,5 @@ class Contenido(models.Model):
         chained_field="Carrera",
         chained_model_field="propuesta_codigo_id",
     )
+    # Carrera = models.ForeignKey(Carreras, on_delete=models.CASCADE)
+    # Materia = models.ForeignKey(Materias, on_delete=models.CASCADE)

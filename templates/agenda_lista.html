@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="page-header">Contenido Minimo</h1>
+<h1 class="page-header">Contenido M&iacutenimo</h1>
 <div>
 	<p>
 		<button type="button"
@@ -17,35 +17,17 @@
 			Agregar item
 		</button>
 	</p>
-	<!-- <p>
-		<button type="button"
-		class="btn btn-primary js-buscar-item"
-		data-url="{% url 'buscar_item' %}">
-			<span class="glyphicon glyphicon-search"></span>
-			Buscar Item
-		</button>
-	</p> -->
 </div>
 
 <table class="table" id="agenda-table">
 	<thead class="thead-dark">
-		<tr>
-			{% comment %} <th scope="col">#</th>
-			<th scope="col">Descripcion</th> {% endcomment %}
-			
+		<tr style="text-align: center">
 			<th scope="col">#</th>
 			<th scope="col">Departamento</th>
 			<th scope="col">Carrera</th>
 			<th scope="col">Asignatura</th>			
-			<th scope="col">MateriaId</th>
-
-			<!-- <th scope="col">CreatedOn</th>
-			<th scope="col">CreatedBy</th>
-			<th scope="col">ChangedOn</th>
-			<th scope="col">ChangedBy</th>
-			<th scope="col">DeletetedOn</th>
-			<th scope="col">DeletedBy</th>
-			<th scope="col">Completed</th> -->
+			<th scope="col">Elemento</th>
+			<th scope="col">Ver</th>
 			<th scope="col">Modificar</th>
 			<th scope="col">Eliminar</th>
 		</tr>
@@ -55,7 +37,7 @@
 	</tbody>
 </table>
 
-<div class="modal fade" id="modal-agenda" data-keyboard="false" data-backdrop="static">
+<div class="modal fade" id="modal-agenda" data-keyboard="true" data-backdrop="static">
 	<div class="modal-dialog">
 		<div class="modal-content">
 		</div>

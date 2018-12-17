@@ -17,25 +17,26 @@ def home(request):
     return render(request, 'home.html')
 
 def lista():
+    datos = []
+    dato = {}
     api_data = getAll()
 
     for x in api_data:
-        materia = Materias.objects.get(id_materia=x['MateriaId'])
+        materia = Materias.objects.get(id=x['MateriaId'])
         carrera = Carreras.objects.get(id=materia.propuesta_codigo_id_id)
         departamento = Departamentos.objects.get(id=carrera.id_departamento_id_id)
 
-        datos = {
+        dato.update ({
             'Id': x['Id'],
-            'Departamento': departamento,
-            'Carrera': carrera,
-            'Materia': materia,
-            'MateriaId': materia.id_materia,
+            'Departamento': departamento.nombre,
+            'Carrera': carrera.nombre_propuesta,
+            'Materia': materia.nombre,
+            'MateriaId': materia.id,
             'Descripcion': x['Descripcion'],
-        }
+        })
+        datos.append(dato.copy())
 
-        print(datos)
     return datos
-
 
 @login_required
 def agenda_lista(request, template_name='agenda_lista.html'):
@@ -57,14 +58,14 @@ def agregarItem(request):
 
             objeto = Materias.objects.get(id = form.data['Materia'])
             formulario = {
-                'MateriaId': objeto.id_materia,
+                'MateriaId': objeto.id,
                 'Descripcion': form.data['Descripcion'],
                 'CreatedBy': request.user.username
             }
 
             requests.post('http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/Add', json=formulario)
             
-            datos = getAll()
+            datos = lista()
 
             data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html', {'datos': datos})
         else:
@@ -79,8 +80,8 @@ def agregarItem(request):
 def Editar(request, pk):
     data = dict()
     item = getObj(pk)
-    print(item)
-    objeto = Materias.objects.get(id_materia=item['MateriaId'])
+    # print(item)
+    objeto = Materias.objects.get(id=item['MateriaId'])
 
     if request.method == 'POST':
         form = modificarItem(request.POST)
@@ -97,24 +98,20 @@ def Editar(request, pk):
 
             requests.post('http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/EditBy', json=datos)
 
-            datos = getAll()
+            datos = lista()
 
             data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html',
                                                          {'datos': datos})
         else:
             data['form_is_valid'] = False
     else:
-        form = modificarItem(initial= {
-            'MateriaId': item['MateriaId'],
-            'Nombre': objeto.nombre,
-            'Descripcion': item['Descripcion']})
+        form = modificarItem(initial= {'Descripcion': item['Descripcion']})
         form.Id = pk
-        print("form: ")
-        print(form.data)
+        print(request.POST)
 
     data['html_form'] = render_to_string(
         'modificar_item_parcial.html',
-        {'form': form},
+        {'form': form, 'item': item},
         request=request)
 
     return JsonResponse(data)
@@ -136,7 +133,7 @@ def borrarItem(request, pk):
 
         requests.post('http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/DeleteBy', json = dato)
 
-        datos = getAll()
+        datos = lista()
 
         data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html', {'datos': datos})
     else:
@@ -148,32 +145,42 @@ def borrarItem(request, pk):
     return JsonResponse(data)
 
 
-def buscar(request):
+def ver(request, pk):
+    item = getObj(pk)
     data = dict()
 
     if request.method == 'POST':
-        form = buscarItem(request.POST)
-        print(form.data)
-        if form.is_valid():
-            data['form_is_valid'] = True
 
-            # requests.post(
-            #     'http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/SearchOne',
-            #     params = form.data['Id'],
-            #     headers={'Content-Type': 'application/json; charset=utf-8'}
-            # )
+        data['form_is_valid'] = True
+        dato = {
+            'Materia' : Materias.objects.get(id=item['MateriaId']),
+            'Carrera' : Carreras.objects.get(id=Materias.objects.get(id=item['MateriaId']).propuesta_codigo_id_id),
+            'Departamento' : Departamentos.objects.get(id=Carreras.objects.get(id=Materias.objects.get(id=item['MateriaId']).propuesta_codigo_id_id).id_departamento_id_id),
+        }
 
-            item = getObj(form.data['Id'])
+        print(dato)
 
-            data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html',
-                                                         {'item': item})
-        else:
-            data['form_is_valid'] = False
+        data['html_form'] = render_to_string('ver_item_parcial.html', {'item': item, 'dato':dato}, request=request)
     else:
-        form = buscarItem()
+        context = {'item': item}
+        data['html_form'] = render_to_string('ver_item_parcial.html',
+                                             context,
+                                             request=request
+                                             )
 
-    data['html_form'] = render_to_string('buscar_item_parcial.html', {
-        'form': form}, request=request)
+
+    # dato = {
+    #     'Materia' : Materias.objects.get(id=item['MateriaId']),
+    #     'Carrera' : Carreras.objects.get(id=Materias.objects.get(id=item['MateriaId']).propuesta_codigo_id_id),
+    #     'Departamento' : Departamentos.objects.get(id=Carreras.objects.get(id=Materias.objects.get(id=item['MateriaId']).propuesta_codigo_id_id).id_departamento_id_id),
+    # }
+
+    # data = dict()
+
+    # print(item)
+    # print(dato)
+
+    # data['html_form'] = render_to_string('ver_item_parcial.html', {'item': item, 'dato':dato}, request=request)
     return JsonResponse(data)
 
 

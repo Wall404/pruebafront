@@ -24,8 +24,8 @@ $(function () {
 			dataType: 'json',
 			success: function (data) {
 				if (data.form_is_valid) {
-					$("#agenda-table tbody").html(data.html_agenda_lista);
 					$("#modal-agenda").modal("hide");
+					$("#agenda-table tbody").html(data.html_agenda_lista);
 				}
 				else {
 					$("#modal-agenda .modal-content").html(data.html_form);
@@ -39,9 +39,9 @@ $(function () {
 	$(".js-agregar-item").click(loadForm);
 	$("#modal-agenda").on("submit", ".js-agregar-item-form", saveForm);
 
-	// Buscar Item
-	$(".js-buscar-item").click(loadForm);
-	$("#modal-agenda").on("submit", ".js-buscar-item-form", saveForm);
+	// Ver Item
+	$(".js-ver-item").click(loadForm);
+	$("#modal-agenda").on("submit", ".js-ver-item-form", saveForm);
 	
 	// Modificar item
 	$("#agenda-table").on("click", ".js-modificar-item", loadForm);

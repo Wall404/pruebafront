@@ -44,5 +44,5 @@ urlpatterns = [
 
     url(r'^(?P<pk>\d+)/editar/$', agenda_views.Editar, name='editar'),
 
-    path('agenda_lista/buscar_item/', agenda_views.buscar, name='buscar_item'),
+    url(r'^(?P<pk>\d+)/ver/$', agenda_views.ver, name='ver_item'),
 ]

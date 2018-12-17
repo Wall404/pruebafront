@@ -5,30 +5,28 @@
     <td>{{ x.Carrera }}</td>
     <td>{{ x.Materia }}</td>
     <td>{{ x.MateriaId }}</td>
-    <!--<td>{{ x.Descripcion }}</td>
-    <td>{{ x.MateriaId }}</td>
-    <td>{{ x.CreatedOn }}</td>
-    <td>{{ x.CreatedBy }}</td>
-    <td>{{ x.ChangedOn }}</td>
-    <td>{{ x.ChangedBy }}</td>
-    <td>{{ x.DeletedOn }}</td>
-    <td>{{ x.DeletedBy }}</td>
-    <td>{{ x.IsDeleted }}</td> -->
     <td>
-        <button class="btn btn-secondary js-modificar-item" data-url="{% url 'editar' x.Id as pk %}">
+        <button type="button"
+		class="btn btn-info js-ver-item" data-url="{% url 'ver_item' x.Id %}">
+			<span class="glyphicon glyphicon-search"></span>
+			
+		</button>
+    </td>
+    <td>
+        <button class="btn btn-secondary js-modificar-item" data-url="{% url 'editar' x.Id %}">
             <span class="glyphicon glyphicon-pencil"></span>
-            Modificar
+            
         </button>
     </td>
     <td>
-        <button class="btn btn-warning js-borrar-item" data-url="{% url 'borrar_item' x.Id as pk %}">
+        <button class="btn btn-warning js-borrar-item" data-url="{% url 'borrar_item' x.Id %}">
             <span class="glyphicon glyphicon-trash"></span>
-            Borrar
+            
         </button>
     </td>
 </tr>
 {% empty %}
 <tr>
-    <td colspan="5" class="text-center bg-warning">Vacio</td>
+    <td colspan="8" class="text-center bg-warning">Vacio</td>
 </tr>
 {% endfor %}

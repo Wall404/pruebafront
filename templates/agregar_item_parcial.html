@@ -2,13 +2,13 @@
 
 {{ form.media.js }}
 
-<form method="post" action="{% url 'agregar_item' %}" class="js-agregar-item-form">
+<form id="agregarForm" method="post" action="{% url 'agregar_item' %}" class="js-agregar-item-form">
 
     {% csrf_token %}
 
     <div class="modal-header">
         <h4 class="modal-title">Agregar Nuevo Item</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-back-on-select ="true">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -18,7 +18,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary">Agregar Item</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-back-on-select ="true">Cerrar</button>
+        <button type="submit" class="btn btn-primary" data-back-on-select ="true">Agregar Item</button>
     </div>
 </form>
