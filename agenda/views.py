@@ -148,28 +148,6 @@ def ver(request, pk):
     item = getObj(pk)
     data = dict()
 
-    # dato = {
-    #     'Materia' : Materias.objects.get(id=item['MateriaId']),
-    #     'Carrera' : Carreras.objects.get(id=Materias.objects.get(id=item['MateriaId']).propuesta_codigo_id_id),
-    #     'Departamento' : Departamentos.objects.get(id=Carreras.objects.get(id=Materias.objects.get(id=item['MateriaId']).propuesta_codigo_id_id).id_departamento_id_id),
-    # }
-
-    # if request.method == 'POST':
-
-    #     data['form_is_valid'] = True
-
-    #     print(dato)
-
-    #     datos = listar()
-
-    #     data['html_form'] = render_to_string('ver_item_parcial.html', {'item': item, 'dato':dato}, request=request)
-    # else:
-    #     context = {'item': item}
-    #     data['html_form'] = render_to_string('ver_item_parcial.html',
-    #                                          context,
-    #                                          request=request
-    #                                          )
-
     dato = {
         'Materia' : Materias.objects.get(id=item['MateriaId']),
         'Carrera' : Carreras.objects.get(id=Materias.objects.get(id=item['MateriaId']).propuesta_codigo_id_id),

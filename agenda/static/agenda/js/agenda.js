@@ -40,8 +40,8 @@ $(function () {
 	$("#modal-agenda").on("submit", ".js-agregar-item-form", saveForm);
 
 	// Ver Item
-	// $(".js-ver-item").click(loadForm);
-	$("#agenda-table").on("click", ".js-ver-item", loadForm);
+	// $(".js-ver-item").click(loadForm); <-- .click() para elementos fuera de la tabla
+	$("#agenda-table").on("click", ".js-ver-item", loadForm); // on("click") para elementos dentro de la tabla
 	$("#modal-agenda").on("submit", ".js-ver-item-form", saveForm);
 	
 	// Modificar item
