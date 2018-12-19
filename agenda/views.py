@@ -4,6 +4,7 @@ import requests
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.core.paginator import Paginator
 
 from django.contrib.auth.decorators import login_required
 
@@ -43,7 +44,15 @@ def lista(request, template_name='lista.html'):
     # el nombre de la variable (datos) tiene que ser el mismo que se
     # itera en el codigo html (lista_parcial.html)
 
-    datos = listar()
+    lista_datos = listar()
+    
+    pagina = request.GET.get('page', 1)
+
+    paginator = Paginator(lista_datos, 10)
+
+    print(paginator.num_pages)
+
+    datos = paginator.page(pagina)
 
     return render(request, template_name, {'datos': datos})
 

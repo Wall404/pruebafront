@@ -37,6 +37,32 @@
 	</tbody>
 </table>
 
+<ul class="pagination">
+    {% comment %} <span class="step-links"> {% endcomment %}
+        {% if datos.has_previous %}
+            <li><a href="?page=1" class="glyphicon glyphicon-step-backward"></a></li>
+            <li><a href="?page={{ datos.previous_page_number }}" class="glyphicon glyphicon-backward"></a></li>
+        {% endif %}
+
+        {% comment %} <span class="current">
+            P&aacutegina {{ datos.number }} de {{ datos.paginator.num_pages }}.
+        </span> {% endcomment %}
+
+        {% for i in datos.paginator.page_range %}
+            {% if datos.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if datos.has_next %}
+        	<li><a href="?page={{ datos.next_page_number }}" class="glyphicon glyphicon-fast-forward"></a></li>
+            <li><a href="?page={{ datos.paginator.num_pages }}" class="glyphicon glyphicon-step-forward"></a></li>
+        {% endif %}
+    {% comment %} </span> {% endcomment %}
+</ul>
+
 <div class="modal fade" id="modal-agenda" data-keyboard="true" data-backdrop="static">
 	<div class="modal-dialog">
 		<div class="modal-content">
