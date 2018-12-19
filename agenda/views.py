@@ -16,7 +16,7 @@ from .models import Contenido, Departamentos, Carreras, Materias
 def home(request):
     return render(request, 'home.html')
 
-def lista():
+def listar():
     datos = []
     dato = {}
     api_data = getAll()
@@ -39,11 +39,11 @@ def lista():
     return datos
 
 @login_required
-def agenda_lista(request, template_name='agenda_lista.html'):
+def lista(request, template_name='lista.html'):
     # el nombre de la variable (datos) tiene que ser el mismo que se
-    # itera en el codigo html (agenda_lista_parcial.html)
+    # itera en el codigo html (lista_parcial.html)
 
-    datos = lista()
+    datos = listar()
 
     return render(request, template_name, {'datos': datos})
 
@@ -65,9 +65,9 @@ def agregarItem(request):
 
             requests.post('http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/Add', json=formulario)
             
-            datos = lista()
+            datos = listar()
 
-            data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html', {'datos': datos})
+            data['html_lista'] = render_to_string('lista_parcial.html', {'datos': datos})
         else:
             data['form_is_valid'] = False
     else:
@@ -98,20 +98,19 @@ def Editar(request, pk):
 
             requests.post('http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/EditBy', json=datos)
 
-            datos = lista()
+            datos = listar()
 
-            data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html',
+            data['html_lista'] = render_to_string('lista_parcial.html',
                                                          {'datos': datos})
         else:
             data['form_is_valid'] = False
     else:
         form = modificarItem(initial= {'Descripcion': item['Descripcion']})
         form.Id = pk
-        print(request.POST)
 
     data['html_form'] = render_to_string(
         'modificar_item_parcial.html',
-        {'form': form, 'item': item},
+        {'form': form, 'item': item, 'objeto':objeto},
         request=request)
 
     return JsonResponse(data)
@@ -133,9 +132,9 @@ def borrarItem(request, pk):
 
         requests.post('http://spc-api.unpaz.edu.ar/api/ContenidoMinimo/DeleteBy', json = dato)
 
-        datos = lista()
+        datos = listar()
 
-        data['html_agenda_lista'] = render_to_string('agenda_lista_parcial.html', {'datos': datos})
+        data['html_lista'] = render_to_string('lista_parcial.html', {'datos': datos})
     else:
         context = {'item': item}
         data['html_form'] = render_to_string('borrar_parcial.html',
@@ -149,38 +148,37 @@ def ver(request, pk):
     item = getObj(pk)
     data = dict()
 
-    if request.method == 'POST':
-
-        data['form_is_valid'] = True
-        dato = {
-            'Materia' : Materias.objects.get(id=item['MateriaId']),
-            'Carrera' : Carreras.objects.get(id=Materias.objects.get(id=item['MateriaId']).propuesta_codigo_id_id),
-            'Departamento' : Departamentos.objects.get(id=Carreras.objects.get(id=Materias.objects.get(id=item['MateriaId']).propuesta_codigo_id_id).id_departamento_id_id),
-        }
-
-        print(dato)
-
-        data['html_form'] = render_to_string('ver_item_parcial.html', {'item': item, 'dato':dato}, request=request)
-    else:
-        context = {'item': item}
-        data['html_form'] = render_to_string('ver_item_parcial.html',
-                                             context,
-                                             request=request
-                                             )
-
-
     # dato = {
     #     'Materia' : Materias.objects.get(id=item['MateriaId']),
     #     'Carrera' : Carreras.objects.get(id=Materias.objects.get(id=item['MateriaId']).propuesta_codigo_id_id),
     #     'Departamento' : Departamentos.objects.get(id=Carreras.objects.get(id=Materias.objects.get(id=item['MateriaId']).propuesta_codigo_id_id).id_departamento_id_id),
     # }
 
-    # data = dict()
+    # if request.method == 'POST':
 
-    # print(item)
-    # print(dato)
+    #     data['form_is_valid'] = True
 
-    # data['html_form'] = render_to_string('ver_item_parcial.html', {'item': item, 'dato':dato}, request=request)
+    #     print(dato)
+
+    #     datos = listar()
+
+    #     data['html_form'] = render_to_string('ver_item_parcial.html', {'item': item, 'dato':dato}, request=request)
+    # else:
+    #     context = {'item': item}
+    #     data['html_form'] = render_to_string('ver_item_parcial.html',
+    #                                          context,
+    #                                          request=request
+    #                                          )
+
+    dato = {
+        'Materia' : Materias.objects.get(id=item['MateriaId']),
+        'Carrera' : Carreras.objects.get(id=Materias.objects.get(id=item['MateriaId']).propuesta_codigo_id_id),
+        'Departamento' : Departamentos.objects.get(id=Carreras.objects.get(id=Materias.objects.get(id=item['MateriaId']).propuesta_codigo_id_id).id_departamento_id_id),
+    }
+
+    print(dato)
+
+    data['html_form'] = render_to_string('ver_item_parcial.html', {'item': item, 'dato':dato}, request=request)
     return JsonResponse(data)
 
 

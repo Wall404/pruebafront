@@ -163,7 +163,7 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'cuentasUsuarios.usuarioCustom'
 
-LOGIN_REDIRECT_URL = 'agenda_lista'
+LOGIN_REDIRECT_URL = 'lista'
 
 LOGOUT_REDIRECT_URL = 'login'
 

@@ -36,9 +36,9 @@ urlpatterns = [
 
     path('', agenda_views.home, name='home'),
 
-    path('agenda_lista/', agenda_views.agenda_lista, name='agenda_lista'),
+    path('lista/', agenda_views.lista, name='lista'),
 
-    path('agenda_lista/agregar_item/', agenda_views.agregarItem, name='agregar_item'),
+    path('lista/agregar_item/', agenda_views.agregarItem, name='agregar_item'),
 
     url(r'^(?P<pk>\d+)/borrar/$', agenda_views.borrarItem, name='borrar_item'),
 

@@ -1,10 +1,10 @@
 {% for x in datos %}
 <tr>
-    <td>{{ x.Id }}</td>
+    {% comment %} <td>{{ x.Id }}</td> {% endcomment %}
+    <td>{{ x.MateriaId }}</td>
     <td>{{ x.Departamento }}</td>
     <td>{{ x.Carrera }}</td>
     <td>{{ x.Materia }}</td>
-    <td>{{ x.MateriaId }}</td>
     <td>
         <button type="button"
 		class="btn btn-info js-ver-item" data-url="{% url 'ver_item' x.Id %}">
@@ -27,6 +27,6 @@
 </tr>
 {% empty %}
 <tr>
-    <td colspan="8" class="text-center bg-warning">Vacio</td>
+    <td colspan="7" class="text-center bg-warning">Vacio</td>
 </tr>
 {% endfor %}

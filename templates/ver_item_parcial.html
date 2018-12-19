@@ -5,7 +5,8 @@
     {% csrf_token %}
 
     <div class="modal-header">
-        <h4 class="modal-title">Detalle {{ item.Id }}</h4>
+        <h4 class="modal-title">{{ dato.Materia.nombre }}</h4>
+        {% comment %} <h4 class="modal-title">Id elemento: {{ item.Id }}</h4> {% endcomment %}
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -13,14 +14,14 @@
 
     <div class="modal-body">
         <label>Departamento: {{ dato.Departamento.nombre }}</label>
-        <label>Carrera: {{ dato.Carrera.nombre_propuesta }}</label>
-        <label>Asignatura: {{ dato.Materia.nombre }}</label><br>
+        <label>Carrera: {{ dato.Carrera.nombre_propuesta }}</label><br>
+        {% comment %} <label>Asignatura: {{ dato.Materia.nombre }}</label><br> {% endcomment %}
         <label>Descripci&oacuten: </label>
         <p>{{ item.Descripcion }} </p>
     </div>
 
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        {% comment %} <button type="submit" class="btn btn-primary">Buscar</button> {% endcomment %}
+        {% comment %} <button type="submit" class="btn btn-primary">Aceptar</button> {% endcomment %}
     </div>
 </form>

@@ -25,7 +25,7 @@ $(function () {
 			success: function (data) {
 				if (data.form_is_valid) {
 					$("#modal-agenda").modal("hide");
-					$("#agenda-table tbody").html(data.html_agenda_lista);
+					$("#agenda-table tbody").html(data.html_lista);
 				}
 				else {
 					$("#modal-agenda .modal-content").html(data.html_form);
@@ -40,7 +40,8 @@ $(function () {
 	$("#modal-agenda").on("submit", ".js-agregar-item-form", saveForm);
 
 	// Ver Item
-	$(".js-ver-item").click(loadForm);
+	// $(".js-ver-item").click(loadForm);
+	$("#agenda-table").on("click", ".js-ver-item", loadForm);
 	$("#modal-agenda").on("submit", ".js-ver-item-form", saveForm);
 	
 	// Modificar item
