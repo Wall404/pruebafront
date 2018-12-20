@@ -50,8 +50,6 @@ def lista(request, template_name='lista.html'):
 
     paginator = Paginator(lista_datos, 10)
 
-    print(paginator.num_pages)
-
     datos = paginator.page(pagina)
 
     return render(request, template_name, {'datos': datos})

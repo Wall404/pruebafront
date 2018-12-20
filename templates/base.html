@@ -23,6 +23,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		{% if user.is_authenticated %}
 		<div style="width:70%; float:left">
+			<span style="color:white"><strong> Hola {{ user.username }} </strong></span>
 			{% comment %} <ul class="navbar-nav">
 				<li class="nav-item">
 					<a class="nav-link" href="{% url 'home' %}">
@@ -42,12 +43,12 @@
 					<a class="nav-link" href="{% url 'admin:index' %}" title="admin">
 						ADMIN
 					</a>
-				</li>
-				<li class="nav-item"> {% endcomment %}
-					<a class="nav-link glyphicon glyphicon-log-out" href="{% url 'logout' %}" title="logout">
+				</li> {% endcomment %}
+				<li class="nav-item">
+					<a class="nav-link glyphicon glyphicon-log-out" href="{% url 'logout' %}" title="Cerrar Sesión">
 						Salir
 					</a>
-				{% comment %}</li>{% endcomment %}
+				</li>
 			{% comment %} {% else %}
 				<li class="nav-item">
 					<a class="nav-link" href="{% url 'login' %}" title="login">
@@ -65,12 +66,8 @@
 	</div>
 
 	{% endblock body %}
-
+	
 	<script src="{% static 'agenda/js/jquery-3.3.1.min.js' %}"></script>
-	{% comment %} <script
-			  src="https://code.jquery.com/jquery-3.1.0.min.js"
-			  integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
-			  crossorigin="anonymous"></script> {% endcomment %}
 	<script src="{% static 'agenda/js/bootstrap.min.js' %}"></script>
 	{% block javascript %}
 	{% endblock %}

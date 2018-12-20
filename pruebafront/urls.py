@@ -21,6 +21,8 @@ from django.contrib.auth import views as auth_views
 
 from agenda import views as agenda_views
 
+from cuentasUsuarios.forms import loginForm
+
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
 
@@ -30,7 +32,9 @@ urlpatterns = [
 
     url('^', include('django.contrib.auth.urls')),
 
-    url(r'^login/$', auth_views.LoginView.as_view(redirect_authenticated_user=True, template_name='login.html'), name='login'),
+    # url(r'^login/$', auth_views.LoginView.as_view(redirect_authenticated_user=True, template_name='login.html'), name='login'),
+
+    path('login/', auth_views.LoginView.as_view, {'authentication_form':loginForm}, name='login'),
 
     url(r'^logout/$', auth_views.LogoutView.as_view(), {'next_page': '/'}, name='logout'),
 
