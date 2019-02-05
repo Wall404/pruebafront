@@ -9,7 +9,13 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://127.0.0.1:5432/usuarioscm</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="Django guarani" uuid="ace1c0b4-4a1c-45de-8a84-834cca376ec8">
+    <data-source source="LOCAL" name="usuarioscm@localhost" uuid="5195cb03-df73-47f8-b576-e724e9d24231">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/usuarioscm</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Django guarani3" uuid="e1c1bac0-ff79-43dd-b54e-f90ccdfff51d">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>

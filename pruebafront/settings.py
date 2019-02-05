@@ -28,6 +28,7 @@ SECRET_KEY = 'sb_*51e4(+_(p6l!1y(sw#it1&2=2^u2#f2p4=&0s0z0ys^b-@'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'spc.unpaz.edu.ar',
     '127.0.0.1',
     'localhost',
     '*',
@@ -158,6 +159,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
+PROJECT_DIR=os.path.dirname(__file__)
+
+STATIC_ROOT= os.path.join(BASE_DIR,'static/')
 
 STATIC_URL = '/static/'
 
